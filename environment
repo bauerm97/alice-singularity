@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Define any environment init code here
+
+if test -z "$SINGULARITY_INIT"; then
+    PS1="Singularity.$SINGULARITY_CONTAINER> $PS1"
+    SINGULARITY_INIT=1
+    export ALIEN_USER=aliprod
+    export ALIEN_ROOT=/cvmfs/alice.cern.ch/x86_64-2.6-gnu-4.1.2/Packages/AliEn/v2-19-276
+    export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/u/rgrosso/testAgent:/lustre/nyx/alice/aliprod/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/var/lib/aliprod/bin:$PATH
+    export HOME=/lustre/nyx/alice/aliprod
+    export ALIEN_CM_AS_LDAP_PROXY=lxcealice03.gsi.de:8084
+    export LD_LIBRARY_PATH=/cvmfs/alice.gsi.de/grid/lib:$LD_LIBRARY_PATH
+    export TERMINFO=/cvmfs/alice.cern.ch/x86_64-2.6-gnu-4.1.2/Packages/AliEn/v2-19-276/share/terminfo
+    export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
+    export C_INCLUDE_PATH=/usr/include/x86_64-linux-gnu/
+    export CPLUS_INCLUDE_PATH=/usr/include/x86_64-linux-gnu/
+    export http_proxy=
+    export HTTP_PROXY=
+    export https_proxy=
+    export HTTPS_PROXY=
+    export PS1 SINGULARITY_INIT
+fi
+		
