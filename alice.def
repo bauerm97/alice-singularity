@@ -7,3 +7,4 @@ IncludeCmd: no
 	yum -y install gcc-gfortran which
 	mkdir /cvmfs
 	mkdir /cvmfs/alice.cern.ch
+	mkdir /cvmfs/alice-ocdb.cern.ch
