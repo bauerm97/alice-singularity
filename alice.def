@@ -2,9 +2,30 @@ Bootstrap: docker
 From: centos:7
 IncludeCmd: no
 
+%setup
+	x509file=x509up_u3343
+	mkdir -p $SINGULARITY_ROOTFS/alitmp
+	proxyfile=$SINGULARITY_ROOTFS/alitmp/proxy.$$.`date +%s`
+	mv $x509file $proxyfile
+
 %post
 	yum -y install http://linuxsoft.cern.ch/wlcg/centos7/x86_64/HEP_OSlibs-7.1.5-0.el7.cern.x86_64.rpm
 	yum -y install gcc-gfortran which
-	mkdir /cvmfs
-	mkdir /cvmfs/alice.cern.ch
-	mkdir /cvmfs/alice-ocdb.cern.ch
+	mkdir -p /cvmfs/alice.cern.ch
+	mkdir -p /cvmfs/alice-ocdb.cern.ch
+	mkdir /lustre
+	export ALIEN_USER=aliprod
+	export ALIEN_ROOT=/cvmfs/alice.cern.ch/x86_64-2.6-gnu-4.1.2/Packages/AliEn/v2-19-276
+	export PATH=/u/rgrosso/testAgent:/lustre/nyx/alice/aliprod/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/var/lib/aliprod/bin:$PATH
+	export HOME=/lustre/nyx/alice/aliprod
+	export ALIEN_CM_AS_LDAP_PROXY=lxcealice03.gsi.de:8084
+	export LD_LIBRARY_PATH=/cvmfs/alice.gsi.de/grid/lib:$LD_LIBRARY_PATH
+	export TERMINFO=/cvmfs/alice.cern.ch/x86_64-2.6-gnu-4.1.2/Packages/AliEn/v2-19-276/share/terminfo
+	export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/
+	export C_INCLUDE_PATH=/usr/include/x86_64-linux-gnu/
+	export CPLUS_INCLUDE_PATH=/usr/include/x86_64-linux-gnu/
+	export http_proxy=
+	export HTTP_PROXY=
+	export https_proxy=
+	export HTTPS_PROXY=
+	
