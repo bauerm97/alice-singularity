@@ -1,0 +1,14 @@
+Bootstrap: docker
+From: cern/slc6-base
+IncludeCmd: no
+
+%runscript
+	echo "Must be run using singularity exec -B /cvmfs/alice.cern.ch/:/cvmfs/alice.cern.ch/ -B /cvmfs/alice-ocdb.cern.ch/:/cvmfs/alice-ocdb.cern.ch/ -B /lustre/:/lustre/ /path/to/container.img /path/to/job_agent_script.sh"
+
+%post
+	yum -y install http://linuxsoft.cern.ch/wlcg/sl6/x86_64/HEP_OSlibs_SL6-1.0.16-0.el6.x86_64.rpm
+	yum -y install gcc-gfortran which
+	mkdir -p /cvmfs/alice.cern.ch
+	mkdir -p /cvmfs/alice-ocdb.cern.ch
+	mkdir /lustre
+	
