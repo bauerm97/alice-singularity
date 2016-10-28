@@ -1,14 +1,18 @@
 Bootstrap: docker
-From: centos:7
+From: cern/slc6-base
 IncludeCmd: no
+Registry: http://depc403:5000
+Token: no
 
 %runscript
 	echo "Must be run using singularity exec -B /cvmfs/alice.cern.ch/:/cvmfs/alice.cern.ch/ -B /cvmfs/alice-ocdb.cern.ch/:/cvmfs/alice-ocdb.cern.ch/ -B /lustre/:/lustre/ /path/to/container.img /path/to/job_agent_script.sh"
 
 %post
-	yum -y update
-	yum -y install http://linuxsoft.cern.ch/wlcg/centos7/x86_64/HEP_OSlibs-7.1.5-0.el7.cern.x86_64.rpm
-	yum -y install gcc-gfortran which
-	yum -y install net-tools
+	rpm -vv --rebuilddb
+        yum -y update
+        yum -y install http://linuxsoft.cern.ch/wlcg/sl6/x86_64/HEP_OSlibs_SL6-1.0.16-0.el6.x86_64.rpm
+        yum -y install gcc-gfortran which
+        yum -y install redhat-lsb-core
 	mkdir /cvmfs/
 	mkdir /lustre/
+	
